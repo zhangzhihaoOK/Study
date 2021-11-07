@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.mybatis.mapper.UserMapper">
+
+    <select id="getUserList" resultType="User">
+        select * from test.user
+    </select>
+
+    <select id="getVagueUser" resultType="User">
+        select * from test.user where `name` like "%"#{value}"%";
+    </select>
+    <select id="getIdUser" parameterType="int" resultType="User">
+        select * from test.user where id = #{id}
+    </select>
+
+    <select id="getIdUser2" parameterType="map" resultType="User">
+        select * from test.user where id=#{id} and `name`=#{name}
+    </select>
+
+    <insert id="addUser" parameterType="User">
+        insert into test.user(id,`name`,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+    <insert id="addUser2" parameterType="map">
+        insert into test.user(id,`name`,pwd) values (#{userid},#{username},#{password})
+    </insert>
+
+    <update id="updateUser" parameterType="user">
+        update test.user set name=#{name},pwd=#{pwd}  where id=#{id};
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from test.user where id=#{id}
+    </delete>
+    <delete id="deleteUser2" parameterType="map">
+        delete from test.user where `name`=#{name} and pwd=#{pwd}
+    </delete>
+
+    <select id="getUserByLimit" parameterType="map" resultType="user">
+        select * from test.user limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getUser01" parameterType="int" resultType="User">
+        select * from test.user01 left join test.user on test.user01.id = test.user.id
+    </select>
+    
+
+</mapper>
