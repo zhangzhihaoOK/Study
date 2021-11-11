@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/saveOrUpdate")
-    //增加或更新
+    //增加或更新.
     public void saveOrUpdate(){
         userService.saveOrUpdate(new User(1,"仇九", "8888888"));
         System.out.println("数据处理完成");
