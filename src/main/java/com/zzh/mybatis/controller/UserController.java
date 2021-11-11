@@ -148,7 +148,7 @@ public class UserController {
         //oderBy
         wrapper.orderBy(true,true,"name");
     }
-    //分页
+    //分页.
     @GetMapping("/page")
     public IPage<User> page(){
         IPage<User> page = new Page<>();
