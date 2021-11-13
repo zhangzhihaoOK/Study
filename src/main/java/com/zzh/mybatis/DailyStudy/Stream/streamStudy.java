@@ -15,7 +15,7 @@ public class streamStudy {
         //找到list中第一个 >6 的值
         Optional<Integer> first = list.stream().filter(x -> x > 4).findFirst();
         System.out.println("匹配的第一个值为  " + first.get());
-        //找到list中任意一个 >6 的值。。。
+        //找到list中任意一个 >6 的值
         Optional<Integer> any = list.parallelStream().filter(x -> x > 4).findAny();
         System.out.println("匹配的任意一个值为  " + any.get());
         //是否存在大于10的数
