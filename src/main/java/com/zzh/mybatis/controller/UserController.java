@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzh.mybatis.entity.User;
 import com.zzh.mybatis.mapper.UserMapper;
-import com.zzh.mybatis.service.UserService;
+import com.zzh.mybatis.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,7 @@ public class UserController {
     UserMapper userMapper;
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @GetMapping("/getUser")
     public void user() {

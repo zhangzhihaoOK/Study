@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.mybatis.mapper.PersonMapper">
+
+    <select id="getPersonList" resultType="person">
+        select * from test.person
+    </select>
+
+    <select id="getVaguePerson" resultType="person">
+        select * from test.person where `name` like "%"#{value}"%";
+    </select>
+    <select id="getIdPerson" parameterType="int" resultType="person">
+        select * from test.person where id = #{id}
+    </select>
+
+    <select id="getIdPerson2" parameterType="map" resultType="person">
+        select * from test.person where id=#{id} and `name`=#{name}
+    </select>
+
+    <insert id="addPerson" parameterType="person">
+        insert into test.person(id,`name`,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+    <insert id="addPerson2" parameterType="map">
+        insert into test.person(id,`name`,pwd) values (#{personid},#{personname},#{password})
+    </insert>
+
+    <update id="updatePerson" parameterType="person">
+        update test.person set name=#{name},pwd=#{pwd}  where id=#{id};
+    </update>
+
+    <delete id="deletePerson" parameterType="int">
+        delete from test.person where id=#{id}
+    </delete>
+    <delete id="deletePerson2" parameterType="map">
+        delete from test.person where `name`=#{name} and pwd=#{pwd}
+    </delete>
+
+    <select id="getPersonByLimit" parameterType="map" resultType="person">
+        select * from test.person limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getPerson01" parameterType="int" resultType="person">
+        select * from test.person01 left join test.person on test.person01.id = test.person.id
+    </select>
+    
+
+</mapper>
