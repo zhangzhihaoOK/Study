@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -195,5 +196,15 @@ public class UserController {
         userService.remove(new QueryWrapper<User>().le("id",IdWorker.getId()));
         userService.saveBatch(list);
         System.out.println("数据修改完成");
+    }
+    //removeByIds
+    @GetMapping("/removeByIds")
+    public void removeByIds(){
+        User user = userService.getOne(new QueryWrapper<User>().eq("name", "张三"));
+        long id = user.getId();
+        String s = String.valueOf(id);
+        List<String> UserList = Arrays.stream(s.split(",")).collect(Collectors.toList());
+        userService.removeByIds(UserList);
+        System.out.println("删除成功");
     }
 }
