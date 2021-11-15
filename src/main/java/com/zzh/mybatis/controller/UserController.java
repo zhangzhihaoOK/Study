@@ -2,6 +2,7 @@ package com.zzh.mybatis.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzh.mybatis.entity.User;
 import com.zzh.mybatis.mapper.UserMapper;
@@ -185,5 +186,14 @@ public class UserController {
         wrapper.eq("name","ghjt");
         long warpCount = userService.count(wrapper);
         System.out.println(warpCount);
+    }
+    //更改雪花id
+    @GetMapping("/updateId")
+    public void updateId(){
+        List<User> list = userService.list();
+        list.forEach(i -> i.setId(IdWorker.getId()));
+        userService.remove(new QueryWrapper<User>().le("id",IdWorker.getId()));
+        userService.saveBatch(list);
+        System.out.println("数据修改完成");
     }
 }

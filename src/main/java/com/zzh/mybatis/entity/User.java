@@ -13,7 +13,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class User extends Model<User> {
     @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    private long id;
 
     private String name;
 
