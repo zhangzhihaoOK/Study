@@ -2,6 +2,7 @@ package com.zzh.mybatis.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzh.mybatis.entity.User;
 import com.zzh.mybatis.mapper.UserMapper;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -185,5 +187,24 @@ public class UserController {
         wrapper.eq("name","ghjt");
         long warpCount = userService.count(wrapper);
         System.out.println(warpCount);
+    }
+    //更改雪花id
+    @GetMapping("/updateId")
+    public void updateId(){
+        List<User> list = userService.list();
+        list.forEach(i -> i.setId(IdWorker.getId()));
+        userService.remove(new QueryWrapper<User>().le("id",IdWorker.getId()));
+        userService.saveBatch(list);
+        System.out.println("数据修改完成");
+    }
+    //removeByIds
+    @GetMapping("/removeByIds")
+    public void removeByIds(){
+        User user = userService.getOne(new QueryWrapper<User>().eq("name", "张三"));
+        long id = user.getId();
+        String s = String.valueOf(id);
+        List<String> UserList = Arrays.stream(s.split(",")).collect(Collectors.toList());
+        userService.removeByIds(UserList);
+        System.out.println("删除成功");
     }
 }
